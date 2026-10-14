@@ -1,0 +1,14 @@
+-extra-index-url https://download.pytorch.org/whl/cpu
+torch
+streamlit
+pandas
+python-dotenv
+chromadb
+langchain-core
+langchain-chroma
+langchain-groq
+langchain-huggingface
+sentence-transformers
+semantic-router
+pysqlite3-binary; sys_platform == "linux"
+ 

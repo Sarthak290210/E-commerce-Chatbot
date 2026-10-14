@@ -15,7 +15,7 @@ An AI shopping assistant that answers **store-policy questions** using Retrieval
 - **FAQ answers with RAG:** questions are matched against an FAQ vector database (ChromaDB), and the LLM answers using only the retrieved entries, so it doesn't make up policies.
 
 <p align="center">
-  <img src="app/e_commerce_chatbot/assets/faq functioning.png" alt="Q&A using Retrieval augmented generation" width="70%">
+  <img src="app/e_commerce_chatbot/assets/faq_functioning.png" alt="Q&A using Retrieval augmented generation" width="70%">
 </p>
 
 
@@ -143,4 +143,3 @@ The first run downloads the embedding models and builds the FAQ vector store aut
 ## 👤 Author
  
 **Sarthak**
-[GitHub](https://github.com/your-username) · [LinkedIn](https://www.linkedin.com/in/your-profile)
