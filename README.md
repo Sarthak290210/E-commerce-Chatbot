@@ -101,7 +101,6 @@ uv sync
  
 # 3. Add your API key
 echo "GROQ_API_KEY=your_key_here" > .env
-echo "GROQ_MODEL=openai/gpt-oss-20b" >> .env
  
 # 4. Start the app
 uv run streamlit run app/e_commerce_chatbot/main.py
