@@ -24,6 +24,7 @@ TAGLINE = "Your AI shopping assistant: ask about store policies or find the perf
 AUTHOR = "Sarthak"
  
 FAQ_PATH = Path(__file__).parent / "resources" / "faq_data.csv"
+MAX_QUESTIONS = 8  # questions allowed per visitor session
  
 ROUTE_BADGES = {
     "faq": ("📘", "Store policies"),
@@ -127,7 +128,8 @@ def ask(query: str):
         # "faq" or no match: the FAQ prompt says "I don't know" when nothing fits
         return faq_chain.invoke(query), "faq"
     except Exception as e:
-        return f"Sorry, something went wrong while handling that request.\n\n`{e}`", "error"
+        print(f"Error handling query: {e}")  # visible only in Manage app -> Logs
+        return "Sorry, I couldn't process that right now. Please try again in a minute.", "error"
  
  
 def badge(route: str):
@@ -219,8 +221,16 @@ for message in st.session_state.messages:
  
 typed = st.chat_input("Ask about store policies or search for products...")
 query = typed or st.session_state.pop("pending_query", None)
+
+OWNER_CODE = os.getenv("OWNER_CODE")
+is_owner = bool(OWNER_CODE) and st.query_params.get("owner") == OWNER_CODE
  
 if query:
+    if not is_owner and st.session_state.get("question_count", 0) >= MAX_QUESTIONS:
+        st.info("Demo limit reached for this session. Refresh the page to continue.")
+        st.stop()
+    st.session_state["question_count"] = st.session_state.get("question_count", 0) + 1
+
     example_area.empty()
  
     with st.chat_message("user", avatar="🧑‍💻"):
